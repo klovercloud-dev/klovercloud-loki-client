@@ -10,16 +10,7 @@ import (
 	"strconv"
 )
 
-type builder struct {
-	method string
-	url    string
-	labels map[string]string
-	time   int64
-	limit  int
-	body   interface{}
-	query  string
-	pipe   string
-}
+
 
 type QueryResponse struct {
 	Data     Data  `json:"data"`
@@ -61,9 +52,27 @@ type Builder interface {
 	NotMatches(expression string) Builder
 	CountOverTime(minutes int) Builder
 	TopK(k int64) Builder
+	Start(int64) Builder
+	End(int64) Builder
+	Avg() Builder
 	Build() Builder
 	Fire()  QueryResponse
 }
+
+
+type builder struct {
+	method string
+	url    string
+	labels map[string]string
+	time   int64
+	limit  int
+	body   interface{}
+	query  string
+	pipe   string
+	start int64
+	end int64
+}
+
 
 func (qb *builder) Fire() QueryResponse {
 	client := &http.Client{}
@@ -81,6 +90,8 @@ func (qb *builder) Fire() QueryResponse {
 	return response
 
 }
+
+
 
 func (qb *builder) TopK(k int64) Builder {
 	temp := ""
@@ -124,6 +135,16 @@ func (qb *builder) NotMatches(expression string) Builder {
 	return qb
 }
 
+func (qb *builder) Start(start int64) Builder {
+	qb.start=start
+	return qb
+}
+
+func (qb *builder) End(end int64) Builder {
+	qb.end=end
+	return qb
+}
+
 func (qb *builder) Sum() Builder {
 	temp := ""
 	if qb.query == "" {
@@ -134,6 +155,18 @@ func (qb *builder) Sum() Builder {
 	qb.query = "sum(" + temp + ")"
 	return qb
 }
+
+func (qb *builder) Avg() Builder {
+	temp:=""
+	if(qb.query==""){
+		temp=createKeyValuePairs(qb.labels)+qb.pipe
+	}else{
+		temp=qb.query
+	}
+	qb.query="avg("+temp+")"
+	return qb
+}
+
 
 func (qb *builder) Rate(minutes int) Builder {
 	temp := ""
@@ -195,6 +228,14 @@ func (qb *builder) Build() Builder {
 	}
 	if qb.time != 0 {
 		str = str + "&time=" + strconv.FormatInt(qb.time, 10)
+	}
+
+	if qb.start != 0 {
+		str = str + "&start=" + strconv.FormatInt(qb.start, 10)
+	}
+
+	if qb.end != 0 {
+		str = str + "&end=" + strconv.FormatInt(qb.end, 10)
 	}
 	qb.url = str
 	return qb

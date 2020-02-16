@@ -37,6 +37,7 @@ type Builder interface {
 	End(int64) Builder
 	CountOverTime(minutes int) Builder
 	TopK(k int64) Builder
+	Avg() Builder
 	Build() Builder
 	Fire() query.QueryResponse
 }
@@ -141,6 +142,18 @@ func (qb *builder) Sum() Builder {
 	qb.query="sum("+temp+")"
 	return qb
 }
+
+func (qb *builder) Avg() Builder {
+	temp:=""
+	if(qb.query==""){
+		temp=createKeyValuePairs(qb.labels)+qb.pipe
+	}else{
+		temp=qb.query
+	}
+	qb.query="avg("+temp+")"
+	return qb
+}
+
 
 func (qb *builder) Rate(minutes int) Builder {
 	temp:=""

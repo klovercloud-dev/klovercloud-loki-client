@@ -10,4 +10,3 @@ func levelUrl() interface{}{
 func valuesUrl() interface{}{
 	return labels.NewUrlBuilder().Init().Get().Values("app").Build().Fire()
 }
-nti
