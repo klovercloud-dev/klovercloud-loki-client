@@ -1,8 +1,8 @@
 package v1
 
 import (
-	"klovercloud-loki-client/pkg/apis/v1/loki/query"
-	_range "klovercloud-loki-client/pkg/apis/v1/loki/query/range"
+	"github.com/klovercloud-dev/klovercloud-loki-client/pkg/apis/v1/loki/query"
+	_range "github.com/klovercloud-dev/klovercloud-loki-client/pkg/apis/v1/loki/query/range"
 )
 
 func queryRangeUrl() query.QueryResponse {

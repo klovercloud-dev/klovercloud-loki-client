@@ -3,8 +3,8 @@ package query
 import (
 	"encoding/json"
 	"io/ioutil"
-	"klovercloud-loki-client/config"
-	"klovercloud-loki-client/pkg/apis/common"
+	"github.com/klovercloud-dev/klovercloud-loki-client/config"
+	"github.com/klovercloud-dev/klovercloud-loki-client/pkg/apis/common"
 	"log"
 	"net/http"
 	"strconv"

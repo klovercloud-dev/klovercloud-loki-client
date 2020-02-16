@@ -3,9 +3,9 @@ package _range
 import (
 	"encoding/json"
 	"io/ioutil"
-	"klovercloud-loki-client/config"
-	"klovercloud-loki-client/pkg/apis/common"
-	"klovercloud-loki-client/pkg/apis/v1/loki/query"
+	"github.com/klovercloud-dev/klovercloud-loki-client/config"
+	"github.com/klovercloud-dev/klovercloud-loki-client/pkg/apis/common"
+	"github.com/klovercloud-dev/klovercloud-loki-client/pkg/apis/v1/loki/query"
 	"log"
 	"net/http"
 	"strconv"

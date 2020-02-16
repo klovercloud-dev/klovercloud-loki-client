@@ -1,6 +1,6 @@
 package v1
 
-import "klovercloud-loki-client/pkg/apis/v1/loki/labels"
+import "github.com/klovercloud-dev/klovercloud-loki-client/pkg/apis/v1/loki/labels"
 
 func levelUrl() interface{}{
 	return labels.NewUrlBuilder().Init().Get().Build().Fire()
