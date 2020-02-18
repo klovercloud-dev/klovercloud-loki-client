@@ -226,7 +226,7 @@ func (qb *builder) Build() Builder{
 
 
 
-func NewUrlBuilder() Builder {
+func NewBuilder() Builder {
 	return &builder{}
 }
 

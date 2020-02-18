@@ -6,5 +6,5 @@ import (
 )
 
 func queryRangeUrl() query.QueryResponse {
-	return _range.NewUrlBuilder().Init().Get().Label("app","csi-cephfsplugin").Build().Fire()
+	return _range.NewBuilder().Init().Get().Label("app","csi-cephfsplugin").Build().Fire()
 }
