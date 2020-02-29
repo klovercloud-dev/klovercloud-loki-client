@@ -15,6 +15,7 @@ import (
 type QueryResponse struct {
 	Data     Data  `json:"data"`
 	Status     string  `json:"status"`
+	Query string `json:"string"`
 }
 
 type Data struct {
