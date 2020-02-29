@@ -17,6 +17,7 @@ const (
 type Builder interface {
 	Init() Builder
 	Get() Builder
+	Query( Query string) Builder
 	Build() Builder
 	Fire() query.QueryResponse
 
