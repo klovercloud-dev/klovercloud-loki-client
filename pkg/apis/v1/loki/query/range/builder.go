@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 
@@ -60,7 +61,7 @@ func (qb *builder) Fire() query.QueryResponse {
 	req, err := http.NewRequest(qb.method, qb.url, nil)
 	req.SetBasicAuth(config.Username, config.Password)
 	req.Header.Add("Content-Type","application/json")
-	log.Println("Requesting:",qb.url,",query:",qb.query)
+	log.Println("Requesting:",qb.url,",query:"+strings.Split(qb.url, "=")[1])
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
