@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 const (
@@ -53,6 +54,7 @@ func (qb *builder) Fire() query.QueryResponse {
 	body, err := ioutil.ReadAll(resp.Body)
 	response :=query.QueryResponse{}
 	json.Unmarshal([]byte(body), &response)
+	response.Query=strings.Split(qb.url, "?")[1]
 	return response
 
 }

@@ -61,7 +61,8 @@ func (qb *builder) Fire() query.QueryResponse {
 	req, err := http.NewRequest(qb.method, qb.url, nil)
 	req.SetBasicAuth(config.Username, config.Password)
 	req.Header.Add("Content-Type","application/json")
-	log.Println("Requesting:",qb.url,",query:"+strings.Split(qb.url, "?")[1])
+	log.Println("Requesting:",qb.url)
+
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
@@ -69,6 +70,7 @@ func (qb *builder) Fire() query.QueryResponse {
 	body, err := ioutil.ReadAll(resp.Body)
 	response :=query.QueryResponse{}
 	json.Unmarshal([]byte(body), &response)
+	response.Query=strings.Split(qb.url, "?")[1]
 	return response
 
 }
